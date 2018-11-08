@@ -1,7 +1,6 @@
-FROM openjdk:8-jdk-alpine
-RUN apk add –no-cache bash gawk sed grep bc coreutils
-RUN mkdir -p /sharedFiles/AppServerAgent
-ADD AppServerAgent.zip /sharedFiles/
-RUN unzip /sharedFiles/AppServerAgent.zip -d /sharedFiles/
-AppServerAgent /
+FROM registry.access.redhat.com/rhel
+LABEL maintainer="Karel Vandeputte <karel.vandeputte@hcl.com>"
+ADD volvogroup-appdynamics-java-agent-4.3.5.13-1.x86_64.rpm /opt/appdynamics/
+RUN yum localinstall -y /opt/appdynamics/volvogroup-appdynamics-java-agent-4.3.5.13-1.x86_64.rpm
+
 CMD [“tail”, “-f”, “/dev/null”]
